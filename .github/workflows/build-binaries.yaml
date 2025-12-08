@@ -40,7 +40,7 @@ jobs:
           bash ./scripts/build-binaries.sh
 
       - name: Archive built artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cached-binaries-${{ github.run_id }}
           path: ./build
