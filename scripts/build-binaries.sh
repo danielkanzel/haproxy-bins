@@ -339,7 +339,8 @@ function build_linux_x86_64() {
       USE_STATIC_PCRE2=1 \
       LUA_INC="${LUA_BUILD_DIR}/include" \
       LUA_LIB="${LUA_BUILD_DIR}/lib" \
-      USE_LUA=1
+      USE_LUA=1 \
+      DEFINE="-DLUA_VERSION_NUM=505"
 
     ldd haproxy
 
@@ -373,7 +374,8 @@ function build_linux_aarch64() {
       USE_STATIC_PCRE2=1 \
       LUA_INC="${LUA_BUILD_DIR}/include" \
       LUA_LIB="${LUA_BUILD_DIR}/lib" \
-      USE_LUA=1
+      USE_LUA=1 \
+      DEFINE="-DLUA_VERSION_NUM=505"
 
     ldd haproxy
 
