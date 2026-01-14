@@ -316,7 +316,7 @@ function build_binary() {
 # Ref: https://github.com/haproxy/haproxy/blob/master/Makefile
 function build_linux_x86_64() {
 
-    find / -name lua.h 2>/dev/null
+    cat /usr/include/lua.h
 
     make -j"$(nproc)" \
       TARGET=linux-glibc \
