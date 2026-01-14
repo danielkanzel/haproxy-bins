@@ -277,11 +277,6 @@ function build_binary() {
     OPENSSL_BUILD_DIR="$(find "${SELF_PATH}/../libs/${ARCH_BUILD}/" -maxdepth 1 -type d -name "openssl-*" -print0 | xargs --null)"
     LUA_BUILD_DIR="$(find "${SELF_PATH}/../libs/${ARCH_BUILD}/" -maxdepth 1 -type d -name "lua-*" -print0 | xargs --null)"
 
-    sed -i 's/lua_newstate(hlua_alloc, \&hlua_global_allocator);/lua_newstate(hlua_alloc, \&hlua_global_allocator, luaL_makeseed(0));/' src/hlua.c
-    echo $(grep "L = lua_newstate(hlua_alloc, &hlua_global_allocator);" src/hlua.c)
-    echo $(ls)
-    echo "PIPISKA"
-
     case "${TARGET}" in
 
       linux_x86_64)
@@ -321,6 +316,11 @@ function build_binary() {
 # Ref: https://github.com/haproxy/haproxy/blob/master/Makefile
 function build_linux_x86_64() {
 
+    sed -i 's/lua_newstate(hlua_alloc, \&hlua_global_allocator);/lua_newstate(hlua_alloc, \&hlua_global_allocator, luaL_makeseed(0));/' src/hlua.c
+    echo $(grep "L = lua_newstate(hlua_alloc, &hlua_global_allocator);" src/hlua.c)
+    echo $(ls)
+    echo "PIPISKA"
+
     make -j"$(nproc)" \
       TARGET=linux-glibc \
       ARCH=x86_64 \
@@ -355,6 +355,11 @@ function build_linux_x86_64() {
 # ARM Cross-compiler doesn't allow usage libcrypt, so sadly, there is no support for Raspberry Pi 4 users
 # Ref: https://github.com/haproxy/haproxy/blob/master/.github/workflows/cross-zoo.yml
 function build_linux_aarch64() {
+
+    sed -i 's/lua_newstate(hlua_alloc, \&hlua_global_allocator);/lua_newstate(hlua_alloc, \&hlua_global_allocator, luaL_makeseed(0));/' src/hlua.c
+    echo $(grep "L = lua_newstate(hlua_alloc, &hlua_global_allocator);" src/hlua.c)
+    echo $(ls)
+    echo "PIPISKA"
 
     make -j"$(nproc)" CC="aarch64-linux-gnu-gcc" \
       TARGET=linux-glibc \
