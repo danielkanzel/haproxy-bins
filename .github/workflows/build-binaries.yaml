@@ -73,7 +73,7 @@ jobs:
 
       - name: Download built artifacts
         id: download-artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: cached-binaries-${{ github.run_id }}
           path: release
