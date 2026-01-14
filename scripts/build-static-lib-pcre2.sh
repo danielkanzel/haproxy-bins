@@ -67,14 +67,13 @@ function get_last_pcre2_release() {
     echo -e "\n================ Get last release ================\n"
     local FUNC_EXIT_CODE=0
 
-    # Get last release tag
+    # Get last release tag refs/heads/release/pcre2-10.47
     LAST_RELEASE=$(git ls-remote --heads --tags "https://github.com/PCRE2Project/pcre2.git" | \
       awk '{print $2}' | \
       grep -E -i 'pcre2-[[:digit:]]{1,3}.[[:digit:]]{1,3}(.[[:digit:]]{1,3})?$' | \
-      sed 's#refs/tags/##' | \
+      sed 's#refs/heads/release/##' | \
       sort --version-sort | \
       tail -n1 | xargs)
-    echo $LAST_RELEASE
     if [ -z "${LAST_RELEASE}" ]; then
         echo -e "[X] Get last release tag of PCRE2 repository fails."
         return 2
@@ -95,7 +94,7 @@ function get_last_pcre2_release() {
     fi
 
     # Download the package https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.47/pcre2-10.47.tar.gz
-    wget --timestamping --quiet "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-${LAST_RELEASE}/pcre2-${LAST_RELEASE}.tar.gz" || FUNC_EXIT_CODE=$?
+    wget --timestamping --quiet "https://github.com/PCRE2Project/pcre2/releases/download/${LAST_RELEASE}/${LAST_RELEASE}.tar.gz" || FUNC_EXIT_CODE=$?
     if [ $FUNC_EXIT_CODE -ne 0 ]; then
         echo -e "[X] Download of '${LAST_RELEASE}.tar.gz' fails."
         return $FUNC_EXIT_CODE
