@@ -74,6 +74,7 @@ function get_last_pcre2_release() {
       sed 's#refs/tags/##' | \
       sort --version-sort | \
       tail -n1 | xargs)
+    echo $LAST_RELEASE
     if [ -z "${LAST_RELEASE}" ]; then
         echo -e "[X] Get last release tag of PCRE2 repository fails."
         return 2
@@ -93,8 +94,8 @@ function get_last_pcre2_release() {
         return $FUNC_EXIT_CODE
     fi
 
-    # Download the package
-    wget --timestamping --quiet "https://github.com/PCRE2Project/pcre2/releases/download/${LAST_RELEASE}/${LAST_RELEASE}.tar.gz" || FUNC_EXIT_CODE=$?
+    # Download the package https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.47/pcre2-10.47.tar.gz
+    wget --timestamping --quiet "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-${LAST_RELEASE}/pcre2-${LAST_RELEASE}.tar.gz" || FUNC_EXIT_CODE=$?
     if [ $FUNC_EXIT_CODE -ne 0 ]; then
         echo -e "[X] Download of '${LAST_RELEASE}.tar.gz' fails."
         return $FUNC_EXIT_CODE
