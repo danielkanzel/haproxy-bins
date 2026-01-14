@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         targets: [ linux ]
-        architectures: [ x86_64, aarch64]
+        architectures: [ x86_64 ]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
