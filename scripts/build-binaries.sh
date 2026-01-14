@@ -277,8 +277,8 @@ function build_binary() {
     OPENSSL_BUILD_DIR="$(find "${SELF_PATH}/../libs/${ARCH_BUILD}/" -maxdepth 1 -type d -name "openssl-*" -print0 | xargs --null)"
     LUA_BUILD_DIR="$(find "${SELF_PATH}/../libs/${ARCH_BUILD}/" -maxdepth 1 -type d -name "lua-*" -print0 | xargs --null)"
 
-    sed -i '' 's/L = lua_newstate(hlua_alloc, \&hlua_global_allocator);/L = lua_newstate(hlua_alloc, \&hlua_global_allocator, luaL_makeseed(0));/' src/lua.h
-    echo $(grep "L = lua_newstate(hlua_alloc, &hlua_global_allocator);" src/lua.h)
+    sed -i '' 's/L = lua_newstate(hlua_alloc, \&hlua_global_allocator);/L = lua_newstate(hlua_alloc, \&hlua_global_allocator, luaL_makeseed(0));/' src/hlua.c
+    echo $(grep "L = lua_newstate(hlua_alloc, &hlua_global_allocator);" src/hlua.c)
     echo $(ls)
     echo "PIPISKA"
 
