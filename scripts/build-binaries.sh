@@ -277,6 +277,8 @@ function build_binary() {
     OPENSSL_BUILD_DIR="$(find "${SELF_PATH}/../libs/${ARCH_BUILD}/" -maxdepth 1 -type d -name "openssl-*" -print0 | xargs --null)"
     LUA_BUILD_DIR="$(find "${SELF_PATH}/../libs/${ARCH_BUILD}/" -maxdepth 1 -type d -name "lua-*" -print0 | xargs --null)"
 
+    sed -i '14033s/L = lua_newstate(hlua_alloc, &hlua_global_allocator);/L = lua_newstate(hlua_alloc, &hlua_global_allocator, luaL_makeseed(0));/' hlua.c
+
     case "${TARGET}" in
 
       linux_x86_64)
@@ -315,8 +317,6 @@ function build_binary() {
 
 # Ref: https://github.com/haproxy/haproxy/blob/master/Makefile
 function build_linux_x86_64() {
-
-    cat /usr/include/lua.h
 
     make -j"$(nproc)" \
       TARGET=linux-glibc \
