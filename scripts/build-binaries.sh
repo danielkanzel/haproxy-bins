@@ -316,6 +316,8 @@ function build_binary() {
 # Ref: https://github.com/haproxy/haproxy/blob/master/Makefile
 function build_linux_x86_64() {
 
+    find / -name lua.h 2>/dev/null
+
     make -j"$(nproc)" \
       TARGET=linux-glibc \
       ARCH=x86_64 \
@@ -339,9 +341,8 @@ function build_linux_x86_64() {
       USE_STATIC_PCRE2=1 \
       LUA_INC="${LUA_BUILD_DIR}/include" \
       LUA_LIB="${LUA_BUILD_DIR}/lib" \
-      USE_LUA=1 \
-      DEFINE="-DLUA_VERSION_NUM=505"
-
+      USE_LUA=1 
+      
     ldd haproxy
 
     return $FUNC_EXIT_CODE
