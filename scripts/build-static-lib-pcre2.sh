@@ -71,6 +71,7 @@ function get_last_pcre2_release() {
     LAST_RELEASE=$(git ls-remote --heads --tags "https://github.com/PCRE2Project/pcre2.git" | \
       awk '{print $2}' | \
       grep -E -i 'pcre2-[[:digit:]]{1,3}.[[:digit:]]{1,3}(.[[:digit:]]{1,3})?$' | \
+      sed 's#refs/tags/##' | \
       sed 's#refs/heads/release/##' | \
       sort --version-sort | \
       tail -n1 | xargs)
